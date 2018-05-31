@@ -12,3 +12,19 @@ dasdasdasd
 asdsaddasdasd
 asdasd
 sad
+ public String history() throws IOException, NoHeadException, GitAPIException {//It will print on standard out ..It might be redirectedin in future..
+        StringBuffer logMessage = new StringBuffer("");
+        String message = "";
+        try {
+            List<String> logMessages = new ArrayList<String>();
+            Iterable<RevCommit> commits = git.log().all().call();
+            for (RevCommit commit : commits) {
+                message = commit.getFullMessage();
+                logMessage.append(message);
+            }
+        } catch (Exception ex) {
+            System.err.println("Error Occure in geting  histiry " + ex);
+
+        }
+        return logMessage.toString();
+    }
